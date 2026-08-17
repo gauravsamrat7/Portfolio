@@ -6,9 +6,11 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic quis
-          dolores numquam iusto Ratione earum ducimus autem id iure pariatur
-          dolorum quae maiores.
+          I’m Bhanu Prakash, an enthusiastic and motivated B.Tech student in
+          Artificial Intelligence and Machine Learning. I’m passionate about
+          coding, web development, and building innovative solutions. I have a
+          strong foundation in C programming and I’m actively learning Data
+          Structures and Algorithms in C++ to sharpen my problem-solving skills.
         </p>
       </div>
     </div>
