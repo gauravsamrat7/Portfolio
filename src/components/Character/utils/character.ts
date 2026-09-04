@@ -13,35 +13,37 @@ const setCharacter = (
   dracoLoader.setDecoderPath("/draco/");
   loader.setDRACOLoader(dracoLoader);
 
-  const loadCharacter = () => {
-    return new Promise<GLTF | null>(async (resolve, reject) => {
-      try {
-        const encryptedBlob = await decryptFile(
-          "/models/character.enc",
-          "Character3D#@"
-        );
-        const blobUrl = URL.createObjectURL(new Blob([encryptedBlob]));
+  const loadCharacter = async () => {
+    const encryptedBlob = await decryptFile(
+      "/models/character.enc",
+      "Character3D#@"
+    );
+    const blobUrl = URL.createObjectURL(new Blob([encryptedBlob]));
 
-        let character: THREE.Object3D;
+    return new Promise<GLTF | null>((resolve, reject) => {
         loader.load(
           blobUrl,
           async (gltf) => {
-            character = gltf.scene;
-            await renderer.compileAsync(character, camera, scene);
-            character.traverse((child: any) => {
-              if (child.isMesh) {
-                const mesh = child as THREE.Mesh;
-                child.castShadow = true;
-                child.receiveShadow = true;
+            try {
+              const character = gltf.scene;
+              await renderer.compileAsync(character, camera, scene);
+              character.traverse((child) => {
+                if (child instanceof THREE.Mesh) {
+                  const mesh = child;
+                  mesh.castShadow = true;
+                  mesh.receiveShadow = true;
                 mesh.frustumCulled = true;
-              }
-            });
+                }
+              });
             resolve(gltf);
             setCharTimeline(character, camera);
             setAllTimeline();
             character!.getObjectByName("footR")!.position.y = 3.36;
             character!.getObjectByName("footL")!.position.y = 3.36;
-            dracoLoader.dispose();
+              dracoLoader.dispose();
+            } catch (error) {
+              reject(error);
+            }
           },
           undefined,
           (error) => {
@@ -49,10 +51,6 @@ const setCharacter = (
             reject(error);
           }
         );
-      } catch (err) {
-        reject(err);
-        console.error(err);
-      }
     });
   };
 
