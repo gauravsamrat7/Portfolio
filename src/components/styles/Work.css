@@ -37,7 +37,14 @@
   flex-shrink: 0;
   gap: 50px;
   justify-content: start;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
+
+.work-box:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
 .work-flex .work-box:nth-child(even) {
   flex-direction: column-reverse;
 }
@@ -92,7 +99,15 @@
 }
 .work-image-in {
   position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
+
+.work-image-in:hover {
+  transform: translateY(-4px) scale(1.01);
+  filter: brightness(1.08);
+}
+
 .work-link {
   position: absolute;
   bottom: 10px;
@@ -128,6 +143,7 @@
 .work-image img {
   max-width: 100%;
   max-height: 350px;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
 }
 
 .project-link {
@@ -181,7 +197,7 @@
   gap: 24px;
   padding: 30px;
   border: 1px solid #363636;
-  background: rgba(255, 255, 255, 0.01);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   box-sizing: border-box;
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
